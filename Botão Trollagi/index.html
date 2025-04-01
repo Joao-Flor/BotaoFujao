@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Botão Impossível</title>
+    <style>
+        /* Resetando margens e padding do body */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Estilização do botão */
+        #botaoFugitivo {
+            position: absolute;
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botão que vai fugir do mouse -->
+    <button id="botaoFugitivo" tabindex="-1">Clique aqui</button>
+
+    <script>
+        // Seleciona o botão
+        const botao = document.getElementById('botaoFugitivo');
+
+        // Posiciona o botão no centro inicialmente
+        botao.style.left = '50%';
+        botao.style.top = '50%';
+        botao.style.transform = 'translate(-50%, -50%)';
+
+        // Função para gerar uma posição aleatória
+        function gerarPosicaoAleatoria() {
+            const alturaJanela = window.innerHeight;
+            const larguraJanela = window.innerWidth;
+            const alturaBtn = botao.offsetHeight;
+            const larguraBtn = botao.offsetWidth;
+            
+            // Calcula posições máximas
+            const maxX = larguraJanela - larguraBtn;
+            const maxY = alturaJanela - alturaBtn;
+            
+            // Define nova posição
+            botao.style.left = Math.random() * maxX + 'px';
+            botao.style.top = Math.random() * maxY + 'px';
+            botao.style.transform = 'none';
+        }
+
+        // Função para verificar proximidade do mouse
+        function verificarMouse(evento) {
+            const mouseX = evento.clientX;
+            const mouseY = evento.clientY;
+            const retanguloBotao = botao.getBoundingClientRect();
+            
+            // Calcula distância entre mouse e botão
+            const distancia = Math.sqrt(
+                Math.pow(mouseX - (retanguloBotao.left + retanguloBotao.width/2), 2) +
+                Math.pow(mouseY - (retanguloBotao.top + retanguloBotao.height/2), 2)
+            );
+            
+            // Se mouse estiver próximo, teleporta o botão
+            if (distancia < 100) {
+                gerarPosicaoAleatoria();
+            }
+        }
+
+        // Adiciona evento de movimento do mouse
+        document.addEventListener('mousemove', verificarMouse);
+
+        // Previne foco via teclado
+        botao.addEventListener('focus', (e) => botao.blur());
+    </script>
+</body>
+</html>

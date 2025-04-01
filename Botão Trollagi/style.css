@@ -1,0 +1,34 @@
+/* Resetando margens e padding do body */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden; /* Previne scrollbars */
+}
+
+/* Container para centralizar o botão inicialmente */
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilização do botão */
+#botaoFugitivo {
+    position: absolute; /* Permite posicionamento livre na tela */
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Suaviza o movimento do botão */
+}
+
+/* Efeito hover para dar feedback visual */
+#botaoFugitivo:hover {
+    background-color: #45a049;
+}
